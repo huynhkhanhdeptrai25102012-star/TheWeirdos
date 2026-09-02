@@ -10,15 +10,18 @@ WeirdOS là một prototype web ARG được xây dựng hoàn toàn bằng **HT
 
 ### Màn hình khởi động
 
-![WeirdOS Boot](docs/screenshots/01-boot.png)
+<img width="1429" height="1071" alt="Screenshot 2026-09-02 131510" src="https://github.com/user-attachments/assets/da7bed58-4fea-4726-ac78-0f07ed403128" />
+
 
 ### Hợp nhất dữ liệu khởi động
 
-![WeirdOS Data Merge](docs/screenshots/02-data-merge.png)
+<img width="1704" height="938" alt="Screenshot 2026-09-02 131515" src="https://github.com/user-attachments/assets/5db44b16-1910-48c3-8746-70060cd4eb5e" />
+
 
 ### Desktop WeirdOS
 
-![WeirdOS Desktop](docs/screenshots/03-desktop.png)
+<img width="1918" height="1078" alt="Screenshot 2026-09-02 131527" src="https://github.com/user-attachments/assets/c45e0f2e-e706-4274-851d-1ab9a970e4fd" />
+
 
 ## 🎮 ARG Overview
 

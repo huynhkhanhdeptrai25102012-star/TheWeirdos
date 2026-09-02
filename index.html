@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000088" />
+  <title>WeirdOS — Hệ điều hành thử nghiệm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="crt-overlay" aria-hidden="true"></div>
+
+  <!-- Màn hình POWER ON -->
+  <section id="boot-screen" class="screen active" aria-label="Màn hình khởi động WeirdOS">
+    <div class="boot-monitor">
+      <div class="boot-brand">
+        <img src="assets/images/weirdos-logo.svg" alt="Logo WeirdOS" class="boot-logo-img" />
+        <div>
+          <div class="boot-wordmark">WeirdOS<span class="tm">™</span></div>
+          <div class="boot-tagline" data-i18n="tagline">&gt; Xem những gì không nên được nhìn thấy _</div>
+        </div>
+      </div>
+      <div class="boot-bios">
+        <div>BIOS WEIRDOS v1.7.0</div>
+        <div>Bản quyền © Phòng Nghiên cứu WeirdOS</div>
+        <hr />
+        <p>Kiểm tra bộ nhớ ........... <b>640K OK</b></p>
+        <p>Ổ đĩa chính ............... <b>C:</b></p>
+        <p>Ổ lưu trữ ................ <b>D:</b></p>
+        <p>Phân vùng lạ .............. <b class="flicker">Z: PHÁT HIỆN</b></p>
+        <p>Toàn vẹn hệ thống ......... <b>CẢNH BÁO</b></p>
+        <p class="boot-warning">BẢN DỰNG NÀY KHÔNG ĐƯỢC THIẾT KẾ ĐỂ KHỞI ĐỘNG HAI LẦN.</p>
+      </div>
+      <button id="power-btn" class="retro-btn" data-i18n="power">BẬT MÁY</button>
+      <div class="boot-hint">Nhấn một lần để bắt đầu và cho phép phát <code>assets/audio/startup.mp3</code>.</div>
+    </div>
+  </section>
+
+  <!-- Màn hình hợp nhất dữ liệu sau POWER ON -->
+  <section id="boot-merge-screen" class="screen hidden" aria-label="Đang chuẩn bị hệ điều hành">
+    <div class="merge-board">
+      <div class="merge-title">WEIRDOS / BẢNG HỢP NHẤT DỮ LIỆU KHỞI ĐỘNG</div>
+      <div class="merge-subtitle">KHÔNG TẮT MÁY — HỆ THỐNG ĐANG TỰ KIỂM TRA</div>
+      <div id="merge-console" class="merge-console"></div>
+      <div class="merge-progress-wrap">
+        <div class="merge-progress"><div id="merge-progress-bar"></div></div>
+        <span id="merge-percent">0%</span>
+      </div>
+      <div class="merge-status" id="merge-status">Đang chờ tín hiệu khởi động...</div>
+    </div>
+  </section>
+
+  <!-- DESKTOP -->
+  <main id="desktop" class="screen hidden" aria-label="Màn hình nền WeirdOS">
+    <div class="desktop-wallpaper"></div>
+
+    <header class="desktop-topline">
+      <div class="system-brand-mini">
+        <img src="assets/images/weirdos-logo.svg" alt="" />
+        <span>WEIRDOS 1.7</span>
+      </div>
+      <div class="desktop-top-status">
+        <span>NGƯỜI DÙNG: KHÁCH</span>
+        <span>MẠNG: NỘI BỘ</span>
+        <span id="desktop-clock-top">--:--</span>
+      </div>
+    </header>
+
+    <section class="desktop-watermark" aria-hidden="true">
+      <img src="assets/images/weirdos-logo.svg" alt="" />
+      <div>WeirdOS</div>
+      <small>&gt; Xem những gì không nên được nhìn thấy _</small>
+    </section>
+
+    <div class="desktop-notes" aria-hidden="true">
+      <div class="sticky sticky-yellow" style="--x: 68vw; --y: 7vh; --r: -2deg;">
+        <b>GHI CHÚ</b><br />Gọi Jake!<br />— mua ngũ cốc
+      </div>
+      <div class="sticky sticky-green" style="--x: 77vw; --y: 5vh; --r: 1deg;">
+        <b>TODO.txt</b><br />□ Kiểm tra thông tin<br />□ Hạn chót: trước bữa trưa thứ Sáu
+      </div>
+      <div class="sticky sticky-pink" style="--x: 87vw; --y: 8vh; --r: 0deg;">
+        <b>CHUỖI</b><br />02 · 04 · 06 · 01 · 03 · 05
+      </div>
+    </div>
+
+    <section id="desktop-icons" class="desktop-icons" aria-label="Biểu tượng trên màn hình">
+      <button class="desktop-icon" data-app="computer"><span class="shortcut-glyph glyph-computer"><i></i></span><span class="shortcut-label" data-i18n="app.computer">Máy tính của tôi</span></button>
+      <button class="desktop-icon" data-app="cmd"><span class="shortcut-glyph glyph-cmd">C:\&gt;_</span><span class="shortcut-label" data-i18n="app.cmd">Dấu nhắc lệnh</span></button>
+      <button class="desktop-icon" data-app="ticket"><span class="shortcut-glyph glyph-ticket">♫</span><span class="shortcut-label" data-i18n="app.ticket">TheTicket</span></button>
+      <button class="desktop-icon" data-app="mail"><span class="shortcut-glyph glyph-mail">✉</span><span class="shortcut-label" data-i18n="app.mail">WeirdMail</span></button>
+      <button class="desktop-icon" data-app="recycle"><span class="shortcut-glyph glyph-bin">♻</span><span class="shortcut-label" data-i18n="app.recycle">Discarded_Souls</span></button>
+      <button class="desktop-icon" data-app="task"><span class="shortcut-glyph glyph-task">▥</span><span class="shortcut-label" data-i18n="app.task">Trình quản lý tác vụ</span></button>
+      <button class="desktop-icon" data-app="notepad"><span class="shortcut-glyph glyph-note">▤</span><span class="shortcut-label" data-i18n="app.notepad">Sổ tay</span></button>
+      <button class="desktop-icon" data-app="settings"><span class="shortcut-glyph glyph-settings">⚙</span><span class="shortcut-label" data-i18n="app.settings">Bảng điều khiển</span></button>
+    </section>
+
+    <footer class="taskbar" aria-label="Thanh tác vụ">
+      <button id="start-menu-btn" class="start-btn" aria-expanded="false">
+        <span class="start-logo"><img src="assets/images/weirdos-logo.svg" alt="" /></span>
+        <span data-i18n="start">Bắt đầu</span>
+      </button>
+      <div id="taskbar-apps" class="taskbar-apps" aria-label="Ứng dụng đang mở"></div>
+      <div class="taskbar-spacer"></div>
+      <div class="system-tray">
+        <button id="lang-switcher" class="tray-language" title="Ngôn ngữ" aria-expanded="false">
+          <span class="flag-dot">VI</span>
+          <span id="lang-label">Tiếng Việt</span>
+          <span class="tray-chevron">▲</span>
+        </button>
+        <span class="tray-icon">◔</span>
+        <span class="tray-icon">⌁</span>
+        <span class="tray-icon">▣</span>
+        <time id="system-clock">--:--</time>
+      </div>
+
+      <div id="language-menu" class="language-menu hidden" role="menu">
+        <button data-lang="vi" role="menuitem"><span>🇻🇳</span> Tiếng Việt</button>
+        <button data-lang="en" role="menuitem"><span>🇺🇸</span> English</button>
+      </div>
+
+      <div id="start-menu" class="start-menu hidden" aria-hidden="true">
+        <div class="start-side">WeirdOS™</div>
+        <div class="start-main">
+          <div class="start-heading">WeirdOS</div>
+          <button data-start-app="computer">▣ <span data-i18n="app.computer">Máy tính của tôi</span></button>
+          <button data-start-app="cmd">&gt;_ <span data-i18n="app.cmd">Dấu nhắc lệnh</span></button>
+          <button data-start-app="mail">✉ <span data-i18n="app.mail">WeirdMail</span></button>
+          <button data-start-app="task">▥ <span data-i18n="app.task">Trình quản lý tác vụ</span></button>
+          <button data-start-app="settings">⚙ <span data-i18n="app.settings">Bảng điều khiển</span></button>
+          <div class="start-divider"></div>
+          <button id="start-shutdown">⏻ <span data-i18n="shutdown">Tắt máy...</span></button>
+        </div>
+      </div>
+    </footer>
+
+    <div id="desktop-toast" class="desktop-toast hidden"></div>
+    <div id="window-layer"></div>
+  </main>
+
+  <!-- Screensaver sau 2 phút -->
+  <section id="screensaver" class="screen hidden" aria-hidden="true">
+    <div class="screensaver-noise"></div>
+    <div class="screensaver-shapes"><div class="shape shape-a"></div><div class="shape shape-b"></div><div class="shape shape-c"></div><div class="shape shape-d"></div></div>
+    <div class="screensaver-center">
+      <img src="assets/images/weirdos-logo.svg" alt="WeirdOS" />
+      <div class="screensaver-text">THỨC DẬY // CÓ THỨ ĐANG NHÌN LẠI</div>
+      <div class="screensaver-subtext">Di chuyển chuột hoặc nhấn một phím để tiếp tục</div>
+    </div>
+  </section>
+
+  <audio id="startup-audio" preload="auto" src="assets/audio/startup.mp3"></audio>
+  <audio id="error-audio" preload="auto" src="assets/audio/error.wav"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
